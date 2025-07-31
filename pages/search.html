@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 결과 - 올티처스</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .search-results-container {
+            padding: 40px 0;
+            min-height: 60vh;
+        }
+        .search-header {
+            margin-bottom: 30px;
+        }
+        .search-query {
+            color: #339dff;
+            font-weight: 600;
+        }
+        .result-item {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .result-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #339dff;
+            margin-bottom: 8px;
+        }
+        .result-category {
+            display: inline-block;
+            background: #e7f3ff;
+            color: #339dff;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .result-instructor {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .result-description {
+            color: #555;
+            line-height: 1.6;
+        }
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666;
+        }
+        .no-results h3 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .search-suggestions-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .suggestion-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .suggestion-item:hover {
+            background: #f8f9fa;
+        }
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        .suggestion-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .suggestion-category {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="올티처스 로고" style="height: 40px;">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <div class="nav-item"><a href="../index.html">홈</a></div>
+                <div class="nav-item"><a href="courses.html">전체 강좌</a></div>
+            </nav>
+            <div class="header-actions">
+                <button class="action-btn" id="search-toggle">🔍 검색</button>
+                <button class="action-btn" id="mypage-btn">👤 마이페이지</button>
+                <button class="action-btn login-btn" id="auth-btn">
+                    <span id="auth-text">로그인</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 검색창 -->
+        <div id="search-box" class="search-box" style="display: flex;">
+            <form id="searchForm" autocomplete="off">
+                <input type="text" id="search-input" placeholder="검색어를 입력하세요" aria-label="검색" />
+                <button type="submit">검색</button>
+            </form>
+        </div>
+    </header>
+
+    <!-- 검색 결과 -->
+    <div class="search-results-container">
+        <div class="container">
+            <div class="search-header">
+                <h1 id="search-title">검색 결과</h1>
+                <p id="search-info">검색 결과를 확인하세요.</p>
+            </div>
+            
+            <div id="search-results">
+                <!-- 검색 결과가 여기에 표시됩니다 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>올티쳐스</h3>
+                    <p>서울시 서초구 서초대로50길 62-9 한림빌딩 (주)에듀컴퍼니</p>
+                    <p>사업자등록번호 : 513-87-03047</p>
+                    <p>대표명 : 윤주훈</p>
+                    <p>대표 전화 : 02-2135-7870</p>
+                    <div class="copyright">
+                        <p>Copyright ⓒ 2025 올티쳐스 All rights reserved.</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="https://allteachers.imweb.me/88" target="_blank">공지사항</a>
+                    <a href="https://allteachers.imweb.me/89" target="_blank">고객·제휴문의</a>
+                    <a href="https://allteachers.imweb.me/?mode=policy" target="_blank">이용약관</a>
+                    <a href="https://allteachers.imweb.me/?mode=privacy" target="_blank">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/auth.js"></script>
+    <script>
+        // 검색 결과 표시
+        function displaySearchResults() {
+            const searchData = JSON.parse(localStorage.getItem('search_results'));
+            const searchTitle = document.getElementById('search-title');
+            const searchInfo = document.getElementById('search-info');
+            const searchResults = document.getElementById('search-results');
+            const searchInput = document.getElementById('search-input');
+
+            if (searchData) {
+                const { query, results } = searchData;
+                searchInput.value = query;
+                searchTitle.textContent = `"${query}" 검색 결과`;
+                searchInfo.textContent = `${results.length}개의 강좌를 찾았습니다.`;
+
+                if (results.length > 0) {
+                    let resultsHTML = '';
+                    results.forEach(course => {
+                        resultsHTML += `
+                            <div class="result-item" onclick="window.location.href='${course.url}'">
+                                <div class="result-title">${course.title}</div>
+                                <div style="margin-bottom: 10px;">
+                                    <span class="result-category">${course.category}</span>
+                                    <span class="result-instructor">강사: ${course.instructor}</span>
+                                </div>
+                                <div class="result-description">${course.description}</div>
+                            </div>
+                        `;
+                    });
+                    searchResults.innerHTML = resultsHTML;
+                } else {
+                    searchResults.innerHTML = `
+                        <div class="no-results">
+                            <h3>검색 결과가 없습니다</h3>
+                            <p>"${query}"에 대한 강좌를 찾을 수 없습니다.</p>
+                            <p>다른 검색어로 시도해보세요.</p>
+                        </div>
+                    `;
+                }
+            } else {
+                searchResults.innerHTML = `
+                    <div class="no-results">
+                        <h3>검색어를 입력해주세요</h3>
+                        <p>찾고 싶은 강좌나 키워드를 검색해보세요.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 페이지 로드시 검색 결과 표시
+        document.addEventListener('DOMContentLoaded', () => {
+            displaySearchResults();
+            
+            // 새로운 검색
+            document.getElementById('searchForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const query = document.getElementById('search-input').value.trim();
+                if (query) {
+                    // 검색 수행 (동일한 로직)
+                    const courses = [
+                        {
+                            title: 'AI/인공지능 완전정복',
+                            category: 'AI/인공지능',
+                            instructor: '김민수',
+                            description: 'AI의 기본 개념부터 ChatGPT, 미드저니 등 최신 AI 도구 활용법까지',
+                            url: 'ai-artificial-intelligence.html',
+                            keywords: ['AI', '인공지능', 'ChatGPT', '미드저니', '머신러닝', '딥러닝']
+                        },
+                        {
+                            title: '실전 영어회화 마스터',
+                            category: '언어교육',
+                            instructor: '제니퍼 스미스',
+                            description: '실제 상황에서 바로 사용할 수 있는 영어회화',
+                            url: 'english-conversation.html',
+                            keywords: ['영어', '회화', '영어회화', '비즈니스영어', '스피킹']
+                        },
+                        {
+                            title: '비즈니스 영어',
+                            category: '언어교육',
+                            instructor: '제니퍼 스미스',
+                            description: '글로벌 비즈니스 현장에서 사용하는 실무 영어',
+                            url: 'business-english.html',
+                            keywords: ['비즈니스', '영어', '업무', '이메일', '프레젠테이션']
+                        },
+                        {
+                            title: '데이터 분석 실무',
+                            category: '직무교육',
+                            instructor: '박데이터',
+                            description: 'Excel과 Python을 활용한 데이터 분석',
+                            url: 'data-science.html',
+                            keywords: ['데이터', '분석', 'Excel', 'Python', '통계', '시각화']
+                        }
+                    ];
+
+                    const lowerQuery = query.toLowerCase();
+                    const results = courses.filter(course => {
+                        return course.title.toLowerCase().includes(lowerQuery) ||
+                               course.category.toLowerCase().includes(lowerQuery) ||
+                               course.instructor.toLowerCase().includes(lowerQuery) ||
+                               course.description.toLowerCase().includes(lowerQuery) ||
+                               course.keywords.some(keyword => keyword.toLowerCase().includes(lowerQuery));
+                    });
+
+                    localStorage.setItem('search_results', JSON.stringify({
+                        query: query,
+                        results: results,
+                        timestamp: Date.now()
+                    }));
+
+                    displaySearchResults();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

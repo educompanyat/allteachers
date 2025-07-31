@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - 올티처스</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .login-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 50px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-header h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .login-header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .welcome-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #339dff;
+            box-shadow: 0 0 0 3px rgba(51, 157, 255, 0.1);
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .remember-me input {
+            margin-right: 8px;
+        }
+        
+        .forgot-password {
+            color: #339dff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .register-link a {
+            color: #339dff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 30px 25px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="올티처스 로고" style="height: 40px;">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <div class="nav-item"><a href="../index.html">홈</a></div>
+                <div class="nav-item"><a href="courses.html">전체 강좌</a></div>
+            </nav>
+            <div class="header-actions">
+                <button class="action-btn">🔍 검색</button>
+                <button class="action-btn">👤 마이페이지</button>
+                <button class="action-btn login-btn">🔐 로그인</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 로그인 폼 -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>로그인</h1>
+                <p>올티처스에 오신 것을 환영합니다</p>
+            </div>
+
+            <!-- 가입 완료 메시지 -->
+            <div class="welcome-message" id="welcomeMessage">
+                회원가입이 완료되었습니다! 이제 로그인해주세요.
+            </div>
+
+            <!-- 에러 메시지 -->
+            <div class="error-message" id="errorMessage"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email" class="form-control" required 
+                           placeholder="이메일을 입력하세요">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" name="password" class="form-control" required 
+                           placeholder="비밀번호를 입력하세요">
+                </div>
+
+                <div class="remember-forgot">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        로그인 상태 유지
+                    </label>
+                    <a href="#" class="forgot-password" onclick="resetPassword()">비밀번호 찾기</a>
+                </div>
+
+                <button type="submit" class="login-btn">로그인</button>
+            </form>
+
+            <div class="register-link">
+                계정이 없으신가요? <a href="register.html">회원가입</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>올티쳐스</h3>
+                    <p>서울시 서초구 서초대로50길 62-9 한림빌딩 (주)에듀컴퍼니</p>
+                    <p>사업자등록번호 : 513-87-03047</p>
+                    <p>대표명 : 윤주훈</p>
+                    <p>대표 전화 : 02-2135-7870</p>
+                    <div class="copyright">
+                        <p>Copyright ⓒ 2025 올티쳐스 All rights reserved.</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="https://allteachers.imweb.me/88" target="_blank">공지사항</a>
+                    <a href="https://allteachers.imweb.me/89" target="_blank">고객·제휴문의</a>
+                    <a href="https://allteachers.imweb.me/?mode=policy" target="_blank">이용약관</a>
+                    <a href="https://allteachers.imweb.me/?mode=privacy" target="_blank">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 로그인 시스템
+        document.addEventListener('DOMContentLoaded', () => {
+            // URL 파라미터 확인
+            const urlParams = new URLSearchParams(window.location.search);
+            const registered = urlParams.get('registered');
+            const email = urlParams.get('email');
+
+            if (registered === 'true') {
+                document.getElementById('welcomeMessage').style.display = 'block';
+                if (email) {
+                    document.getElementById('email').value = decodeURIComponent(email);
+                }
+            }
+
+            // 로그인 폼 제출
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+        });
+
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // 사용자 데이터 로드
+            const users = JSON.parse(localStorage.getItem('allteachers_users')) || {};
+            
+            if (users[email] && users[email].password === password) {
+                // 로그인 성공
+                const user = users[email];
+                user.lastLogin = new Date().toISOString();
+                
+                // 사용자 정보 저장
+                users[email] = user;
+                localStorage.setItem('allteachers_users', JSON.stringify(users));
+                localStorage.setItem('allteachers_current_user', JSON.stringify(user));
+                
+                // 로그인 상태 유지 설정
+                if (rememberMe) {
+                    localStorage.setItem('allteachers_remember', 'true');
+                }
+                
+                alert(`환영합니다, ${user.fullName}님!`);
+                window.location.href = '../index.html';
+            } else {
+                // 로그인 실패
+                showError('이메일 또는 비밀번호가 일치하지 않습니다.');
+            }
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 5000);
+        }
+
+        function resetPassword() {
+            const email = prompt('비밀번호를 재설정할 이메일을 입력하세요:');
+            if (email) {
+                const users = JSON.parse(localStorage.getItem('allteachers_users')) || {};
+                if (users[email]) {
+                    alert('비밀번호 재설정 링크를 이메일로 발송했습니다.\n(실제로는 이메일 발송 기능 구현 필요)');
+                } else {
+                    alert('등록되지 않은 이메일입니다.');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

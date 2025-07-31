@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 올티처스</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .register-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .register-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 50px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .register-header h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .register-header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #339dff;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(51, 157, 255, 0.1);
+        }
+        
+        .form-control.error {
+            border-color: #e74c3c;
+            background-color: #fdf2f2;
+        }
+        
+        .form-control.success {
+            border-color: #27ae60;
+            background-color: #f0f9f4;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            color: #27ae60;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .password-strength {
+            margin-top: 8px;
+        }
+        
+        .strength-meter {
+            height: 4px;
+            background: #e1e5e9;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .strength-text {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 2px;
+            transform: scale(1.2);
+        }
+        
+        .checkbox-group label {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        
+        .checkbox-group a {
+            color: #339dff;
+            text-decoration: none;
+        }
+        
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+        
+        .register-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .register-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login-link a {
+            color: #339dff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-register {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e1e5e9;
+        }
+        
+        .social-register p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .social-btn:hover {
+            background: #f8f9fa;
+            transform: translateY(-1px);
+        }
+        
+        .google-btn {
+            color: #db4437;
+        }
+        
+        .kakao-btn {
+            color: #fee500;
+            background-color: #fee500;
+            color: #333;
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #339dff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .register-card {
+                padding: 30px 25px;
+                margin: 20px;
+            }
+            
+            .register-header h1 {
+                font-size: 28px;
+            }
+            
+            .social-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="올티처스 로고" style="height: 40px;">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <div class="nav-item"><a href="../index.html">홈</a></div>
+                <div class="nav-item"><a href="courses.html">전체 강좌</a></div>
+            </nav>
+            <div class="header-actions">
+                <button class="action-btn">🔍 검색</button>
+                <button class="action-btn">👤 마이페이지</button>
+                <button class="action-btn login-btn" onclick="window.location.href='login.html'">🔐 로그인</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 회원가입 폼 -->
+    <div class="register-container">
+        <div class="register-card">
+            <div class="register-header">
+                <h1>회원가입</h1>
+                <p>올티처스와 함께 새로운 학습 여정을 시작하세요</p>
+            </div>
+
+            <form id="registerForm" novalidate>
+                <!-- 이름 -->
+                <div class="form-group">
+                    <label for="fullName">이름 *</label>
+                    <input type="text" id="fullName" name="fullName" class="form-control" required 
+                           placeholder="실명을 입력해주세요">
+                    <div class="error-message" id="fullName-error"></div>
+                    <div class="success-message" id="fullName-success"></div>
+                </div>
+
+                <!-- 이메일 -->
+                <div class="form-group">
+                    <label for="email">이메일 *</label>
+                    <input type="email" id="email" name="email" class="form-control" required 
+                           placeholder="example@email.com">
+                    <div class="error-message" id="email-error"></div>
+                    <div class="success-message" id="email-success"></div>
+                </div>
+
+                <!-- 비밀번호 -->
+                <div class="form-group">
+                    <label for="password">비밀번호 *</label>
+                    <input type="password" id="password" name="password" class="form-control" required 
+                           placeholder="8자 이상, 숫자와 문자 포함">
+                    <div class="password-strength">
+                        <div class="strength-meter">
+                            <div class="strength-fill" id="strength-fill"></div>
+                        </div>
+                        <div class="strength-text" id="strength-text">비밀번호 강도</div>
+                    </div>
+                    <div class="error-message" id="password-error"></div>
+                </div>
+
+                <!-- 비밀번호 확인 -->
+                <div class="form-group">
+                    <label for="confirmPassword">비밀번호 확인 *</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required 
+                           placeholder="비밀번호를 다시 입력해주세요">
+                    <div class="error-message" id="confirmPassword-error"></div>
+                    <div class="success-message" id="confirmPassword-success"></div>
+                </div>
+
+                <!-- 전화번호 -->
+                <div class="form-group">
+                    <label for="phone">전화번호</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" 
+                           placeholder="010-1234-5678 (선택사항)">
+                    <div class="error-message" id="phone-error"></div>
+                </div>
+
+                <!-- 생년월일 -->
+                <div class="form-group">
+                    <label for="birthDate">생년월일</label>
+                    <input type="date" id="birthDate" name="birthDate" class="form-control">
+                </div>
+
+                <!-- 관심 분야 -->
+                <div class="form-group">
+                    <label>관심 분야 (복수 선택 가능)</label>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; font-weight: normal;">
+                            <input type="checkbox" name="interests" value="language" style="margin-right: 8px;">
+                            언어교육
+                        </label>
+                        <label style="display: flex; align-items: center; font-weight: normal;">
+                            <input type="checkbox" name="interests" value="job" style="margin-right: 8px;">
+                            직무교육
+                        </label>
+                        <label style="display: flex; align-items: center; font-weight: normal;">
+                            <input type="checkbox" name="interests" value="ai" style="margin-right: 8px;">
+                            AI/인공지능
+                        </label>
+                        <label style="display: flex; align-items: center; font-weight: normal;">
+                            <input type="checkbox" name="interests" value="university" style="margin-right: 8px;">
+                            대학교육
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 이용약관 동의 -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        <a href="#" onclick="showTerms()">이용약관</a> 및 
+                        <a href="#" onclick="showPrivacy()">개인정보처리방침</a>에 동의합니다 *
+                    </label>
+                </div>
+
+                <!-- 마케팅 동의 -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="marketing" name="marketing">
+                    <label for="marketing">
+                        마케팅 정보 수신에 동의합니다 (선택사항)
+                    </label>
+                </div>
+
+                <!-- 회원가입 버튼 -->
+                <button type="submit" class="register-btn" id="registerBtn" disabled>
+                    <span id="register-text">회원가입</span>
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                </button>
+            </form>
+
+            <!-- 로그인 링크 -->
+            <div class="login-link">
+                이미 계정이 있으신가요? <a href="login.html">로그인하기</a>
+            </div>
+
+            <!-- 소셜 회원가입 -->
+            <div class="social-register">
+                <p>또는 간편하게 가입하기</p>
+                <div class="social-buttons">
+                    <button class="social-btn google-btn" onclick="socialRegister('google')">
+                        📧 Google로 가입
+                    </button>
+                    <button class="social-btn kakao-btn" onclick="socialRegister('kakao')">
+                        💬 카카오로 가입
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>올티쳐스</h3>
+                    <p>서울시 서초구 서초대로50길 62-9 한림빌딩 (주)에듀컴퍼니</p>
+                    <p>사업자등록번호 : 513-87-03047</p>
+                    <p>대표명 : 윤주훈</p>
+                    <p>대표 전화 : 02-2135-7870</p>
+                    <div class="copyright">
+                        <p>Copyright ⓒ 2025 올티쳐스 All rights reserved.</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="https://allteachers.imweb.me/88" target="_blank">공지사항</a>
+                    <a href="https://allteachers.imweb.me/89" target="_blank">고객·제휴문의</a>
+                    <a href="https://allteachers.imweb.me/?mode=policy" target="_blank">이용약관</a>
+                    <a href="https://allteachers.imweb.me/?mode=privacy" target="_blank">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/register.js"></script>
+</body>
+</html>

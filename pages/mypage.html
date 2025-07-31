@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지 - 올티처스</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .mypage-container {
+            padding: 40px 0;
+            min-height: 70vh;
+        }
+        .user-info {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #339dff, #2178c9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .user-details h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .user-details p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .section-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .course-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .course-item:last-child {
+            border-bottom: none;
+        }
+        .course-info h4 {
+            color: #339dff;
+            margin-bottom: 5px;
+        }
+        .course-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        .progress-bar {
+            width: 120px;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #339dff;
+            transition: width 0.3s;
+        }
+        .progress-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .continue-btn {
+            background: #339dff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+        .continue-btn:hover {
+            background: #2178c9;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #339dff;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        .login-required {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .login-required h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .login-required p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .login-required button {
+            background: #339dff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="올티처스 로고" style="height: 40px;">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <div class="nav-item"><a href="../index.html">홈</a></div>
+                <div class="nav-item"><a href="courses.html">전체 강좌</a></div>
+            </nav>
+            <div class="header-actions">
+                <button class="action-btn" id="search-toggle">🔍 검색</button>
+                <button class="action-btn" id="mypage-btn">👤 마이페이지</button>
+                <button class="action-btn login-btn" id="auth-btn">
+                    <span id="auth-text">로그인</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 마이페이지 컨텐츠 -->
+    <div class="mypage-container">
+        <div class="container">
+            <div id="mypage-content">
+                <!-- 로그인된 사용자의 마이페이지가 여기에 표시됩니다 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>올티쳐스</h3>
+                    <p>서울시 서초구 서초대로50길 62-9 한림빌딩 (주)에듀컴퍼니</p>
+                    <p>사업자등록번호 : 513-87-03047</p>
+                    <p>대표명 : 윤주훈</p>
+                    <p>대표 전화 : 02-2135-7870</p>
+                    <div class="copyright">
+                        <p>Copyright ⓒ 2025 올티쳐스 All rights reserved.</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="https://allteachers.imweb.me/88" target="_blank">공지사항</a>
+                    <a href="https://allteachers.imweb.me/89" target="_blank">고객·제휴문의</a>
+                    <a href="https://allteachers.imweb.me/?mode=policy" target="_blank">이용약관</a>
+                    <a href="https://allteachers.imweb.me/?mode=privacy" target="_blank">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/auth.js"></script>
+    <script>
+        // 마이페이지 렌더링
+        function renderMypage() {
+            const content = document.getElementById('mypage-content');
+            const currentUser = authSystem.getCurrentUser();
+
+            if (!currentUser) {
+                content.innerHTML = `
+                    <div class="login-required">
+                        <h2>로그인이 필요합니다</h2>
+                        <p>마이페이지를 이용하려면 로그인해주세요.</p>
+                        <button onclick="goToLogin()">로그인하기</button>
+                    </div>
+                `;
+                return;
+            }
+
+            // 사용자 이름의 첫 글자 추출
+            const firstLetter = currentUser.name.charAt(0);
+
+            // 통계 계산
+            const totalCourses = currentUser.courses.length;
+            const completedCourses = Object.values(currentUser.progress).filter(p => p >= 100).length;
+            const totalProgress = totalCourses > 0 ? 
+                Math.round(Object.values(currentUser.progress).reduce((a, b) => a + b, 0) / totalCourses) : 0;
+
+            content.innerHTML = `
+                <!-- 사용자 정보 -->
+                <div class="user-info">
+                    <div style="display: flex; align-items: center;">
+                        <div class="user-avatar">${firstLetter}</div>
+                        <div class="user-details" style="margin-left: 20px;">
+                            <h2>${currentUser.name}님</h2>
+                            <p>이메일: ${currentUser.email}</p>
+                            <p>가입일: ${currentUser.joinDate}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 학습 통계 -->
+                <div class="section-card">
+                    <h3 class="section-title">학습 현황</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">${totalCourses}</div>
+                            <div class="stat-label">수강 중인 강의</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${completedCourses}</div>
+                            <div class="stat-label">완료한 강의</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${totalProgress}%</div>
+                            <div class="stat-label">평균 진도율</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${Math.floor(Math.random() * 50) + 20}</div>
+                            <div class="stat-label">학습 시간 (시간)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 수강 중인 강의 -->
+                <div class="section-card">
+                    <h3 class="section-title">수강 중인 강의</h3>
+                    <div id="course-list">
+                        ${currentUser.courses.length > 0 ? 
+                            currentUser.courses.map(course => {
+                                const progress = currentUser.progress[course] || 0;
+                                const courseUrl = getCourseUrl(course);
+                                return `
+                                    <div class="course-item">
+                                        <div class="course-info">
+                                            <h4>${course}</h4>
+                                            <p>진도율: ${progress}%</p>
+                                        </div>
+                                        <div style="display: flex; align-items: center;">
+                                            <div>
+                                                <div class="progress-bar">
+                                                    <div class="progress-fill" style="width: ${progress}%"></div>
+                                                </div>
+                                                <div class="progress-text">${progress}%</div>
+                                            </div>
+                                            <button class="continue-btn" onclick="window.location.href='${courseUrl}'">
+                                                ${progress >= 100 ? '다시보기' : '계속 학습'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('') : 
+                            '<p style="text-align: center; color: #666; padding: 40px;">수강 중인 강의가 없습니다.</p>'
+                        }
+                    </div>
+                </div>
+
+                <!-- 추천 강의 -->
+                <div class="section-card">
+                    <h3 class="section-title">추천 강의</h3>
+                    <div class="course-item">
+                        <div class="course-info">
+                            <h4>프로그래밍 기초</h4>
+                            <p>개발자를 위한 프로그래밍 입문</p>
+                        </div>
+                        <button class="continue-btn" onclick="window.location.href='programming.html'">수강하기</button>
+                    </div>
+                    <div class="course-item">
+                        <div class="course-info">
+                            <h4>리더십과 소통</h4>
+                            <p>효과적인 리더십과 커뮤니케이션</p>
+                        </div>
+                        <button class="continue-btn" onclick="window.location.href='leadership-communication.html'">수강하기</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getCourseUrl(courseTitle) {
+            const courseUrls = {
+                'AI/인공지능': 'ai-artificial-intelligence.html',
+                '비즈니스 영어': 'business-english.html',
+                '비즈니스 중국어': 'business-chinese.html',
+                '비즈니스 일본어': 'business-japanese.html',
+                '데이터 분석': 'data-science.html',
+                'ChatGPT 활용': 'ai-artificial-intelligence.html',
+                '디지털 마케팅': 'marketing.html'
+            };
+            return courseUrls[courseTitle] || 'courses.html';
+        }
+
+        function goToLogin() {
+            window.location.href = '../index.html';
+        }
+
+        // 페이지 로드시 마이페이지 렌더링
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMypage();
+        });
+    </script>
+</body>
+</html>

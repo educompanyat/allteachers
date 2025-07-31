@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>올티처스 - 교육 플랫폼</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="images/logo.png" alt="올티처스 로고" style="height: 40px;">
+            </div>
+
+            <nav class="main-nav">
+                <div class="nav-item" data-category="language">
+                    <span>기업 언어교육</span>
+                    <div class="dropdown">
+                        <a href="pages/english-conversation.html" class="dropdown-item">영어회화</a>
+                        <a href="pages/business-english.html" class="dropdown-item">비즈니스 영어</a>
+                        <a href="pages/english-certification.html" class="dropdown-item">영어 자격증</a>
+                        <a href="pages/chinese-conversation.html" class="dropdown-item">중국어회화</a>
+                        <a href="pages/business-chinese.html" class="dropdown-item">비즈니스 중국어</a>
+                        <a href="pages/chinese-certification.html" class="dropdown-item">중국어 자격증</a>
+                        <a href="pages/japanese-conversation.html" class="dropdown-item">일본어회화</a>
+                        <a href="pages/business-japanese.html" class="dropdown-item">비즈니스 일본어</a>
+                        <a href="pages/japanese-certification.html" class="dropdown-item">일본어 자격증</a>
+                        <a href="pages/second-language.html" class="dropdown-item">제2외국어</a>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-category="job">
+                    <span>기업 직무교육</span>
+                    <div class="dropdown">
+                        <a href="pages/ai-artificial-intelligence.html" class="dropdown-item">AI/인공지능</a>
+                        <a href="pages/programming.html" class="dropdown-item">프로그래밍</a>
+                        <a href="pages/data-science.html" class="dropdown-item">데이터사이언스</a>
+                        <a href="pages/leadership-communication.html" class="dropdown-item">리더십/커뮤니케이션</a>
+                        <a href="pages/sales-service.html" class="dropdown-item">영업/서비스</a>
+                        <a href="pages/business-planning.html" class="dropdown-item">비즈니스/기획</a>
+                        <a href="pages/productivity.html" class="dropdown-item">업무 생산성</a>
+                        <a href="pages/marketing.html" class="dropdown-item">마케팅</a>
+                        <a href="pages/design.html" class="dropdown-item">디자인</a>
+                        <a href="pages/video-media.html" class="dropdown-item">영상/미디어</a>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-category="university">
+                    <span>대학/대학원교육</span>
+                    <div class="dropdown">
+                        <a href="pages/ai-artificial-intelligence.html" class="dropdown-item">AI/인공지능</a>
+                        <a href="pages/programming.html" class="dropdown-item">프로그래밍</a>
+                        <a href="pages/data-science.html" class="dropdown-item">데이터사이언스</a>
+                        <a href="pages/leadership-communication.html" class="dropdown-item">리더십/커뮤니케이션</a>
+                        <a href="pages/sales-service.html" class="dropdown-item">영업/서비스</a>
+                        <a href="pages/business-planning.html" class="dropdown-item">비즈니스/기획</a>
+                        <a href="pages/productivity.html" class="dropdown-item">업무 생산성</a>
+                        <a href="pages/marketing.html" class="dropdown-item">마케팅</a>
+                        <a href="pages/design.html" class="dropdown-item">디자인</a>
+                        <a href="pages/video-media.html" class="dropdown-item">영상/미디어</a>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-category="middle-high">
+                    <span>중등/고등교육</span>
+                    <div class="dropdown">
+                        <a href="pages/career-aptitude.html" class="dropdown-item">진로/적성</a>
+                        <a href="pages/employment-startup.html" class="dropdown-item">취업/창업</a>
+                        <a href="pages/ai-artificial-intelligence.html" class="dropdown-item">AI/인공지능</a>
+                        <a href="pages/programming.html" class="dropdown-item">프로그래밍</a>
+                        <a href="pages/design.html" class="dropdown-item">디자인</a>
+                        <a href="pages/personality-self.html" class="dropdown-item">인성/자아</a>
+                        <a href="pages/society-economy.html" class="dropdown-item">사회/경제</a>
+                        <a href="pages/humanities-culture.html" class="dropdown-item">인문학/교양</a>
+                        <a href="pages/english-conversation.html" class="dropdown-item">영어회화</a>
+                        <a href="pages/english-certification-teen.html" class="dropdown-item">영어자격증</a>
+                    </div>
+                </div>
+
+                <div class="nav-item"><span>유아/초등교육</span></div>
+                <div class="nav-item"><span>화상교육 줌</span></div>
+                <div class="nav-item"><span>레벨테스트</span></div>
+                <div class="nav-item"><span>교육안내</span></div>
+                <div class="nav-item"><span>고용보험환급</span></div>
+            </nav>
+
+            <div class="header-actions">
+                <button class="action-btn" id="search-toggle">
+                    <span>🔍</span>
+                    <span>검색</span>
+                </button>
+                <button class="action-btn" id="mypage-btn">
+                    <span>👤</span>
+                    <span>마이페이지</span>
+                </button>
+                <button class="action-btn login-btn" id="auth-btn">
+                    <span>🔐</span>
+                    <span id="auth-text">로그인</span>
+                </button>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- 검색창 -->
+        <div id="search-box" class="search-box" style="display:none;">
+            <form id="searchForm" autocomplete="off">
+                <input type="text" id="search-input" placeholder="검색어를 입력하세요" aria-label="검색" />
+                <button type="submit">검색</button>
+            </form>
+        </div>
+    </header>
+
+    <!-- 배너 섹션 -->
+    <section class="banner-section">
+        <div class="banner-container">
+            <div class="banner-slides">
+                <div class="banner-slide active">
+                    <img src="images/banner1.png" alt="배너 1" class="banner-image">
+                    <div class="banner-content">
+                        <div class="text-box">
+                            <h2>실무 강사와 만나는 올티처스</h2>
+                            <p>누구나 쉽게 배우고, 성장하는 교육 플랫폼</p>
+                            <button class="cta-btn">지금 시작하기</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="banner-slide">
+                    <img src="images/banner2.png" alt="배너 2" class="banner-image">
+                    <div class="banner-content">
+                        <div class="text-box">
+                            <h2>나에게 맞는 직무/언어교육</h2>
+                            <p>기업/직장에서 바로 활용 가능한 맞춤 강좌 제공</p>
+                            <button class="cta-btn">지금 시작하기</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="banner-slide">
+                    <img src="images/banner3.png" alt="배너 3" class="banner-image">
+                    <div class="banner-content">
+                        <div class="text-box">
+                            <h2>오늘부터 글로벌 실전 역량 UP</h2>
+                            <p>중국/일본/영어 온라인&오프라인 연계 프로그램</p>
+                            <button class="cta-btn">지금 시작하기</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="banner-slide">
+                    <img src="images/banner4.png" alt="배너 4" class="banner-image">
+                    <div class="banner-content">
+                        <div class="text-box">
+                            <h2>전문 강사진과 한눈에 배우기</h2>
+                            <p>실시간 Q&A, 상담/예약/쿠폰 등 다양한 혜택</p>
+                            <button class="cta-btn">지금 시작하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="banner-arrow prev-arrow">‹</button>
+            <button class="banner-arrow next-arrow">›</button>
+
+            <div class="banner-dots" id="bannerDots"></div>
+        </div>
+    </section>
+
+    <!-- 1. 외국어 강의 섹션 -->
+    <section class="courses-section">
+        <div class="container">
+            <h2 class="section-title">외국어 강의</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="images/biz_chi.png" alt="비즈니스 중국어" class="course-img">
+                    </div>
+                    <div class="course-content">
+                        <h3>비즈니스 중국어</h3>
+                        <p>비즈니스 실전 중심의 중국어 수업</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/business-chinese.html')">자세히 보기</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="images/biz_jpn.png" alt="비즈니스 일본어" class="course-img">
+                    </div>
+                    <div class="course-content">
+                        <h3>비즈니스 일본어</h3>
+                        <p>비즈니스 일본어 실무 핵심 과정</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/business-japanese.html')">자세히 보기</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="images/biz_eng.png" alt="비즈니스 영어" class="course-img">
+                    </div>
+                    <div class="course-content">
+                        <h3>비즈니스 영어</h3>
+                        <p>글로벌 현장 맞춤 비즈니스 영어</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/business-english.html')">자세히 보기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 대학교 특강 섹션 -->
+    <section class="courses-section section-gray">
+        <div class="container">
+            <h2 class="section-title">대학교 특강</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">
+                        <div class="placeholder-img">
+                            <span>🎓</span>
+                            <p>썸네일 준비중</p>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>창업과 리더십</h3>
+                        <p>미래 리더를 위한 창업 실무 특강</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/employment-startup.html')">자세히 보기</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <div class="placeholder-img">
+                            <span>📚</span>
+                            <p>썸네일 준비중</p>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>진로 설계</h3>
+                        <p>체계적인 진로 계획 수립 특강</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/career-aptitude.html')">자세히 보기</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <div class="placeholder-img">
+                            <span>💼</span>
+                            <p>썸네일 준비중</p>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>취업 준비</h3>
+                        <p>성공적인 취업을 위한 실전 가이드</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/employment-startup.html')">자세히 보기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. AI/인공지능 섹션 -->
+    <section class="courses-section">
+        <div class="container">
+            <h2 class="section-title">AI/인공지능</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">
+                        <div class="placeholder-img">
+                            <span>🤖</span>
+                            <p>썸네일 준비중</p>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>AI 기초 입문</h3>
+                        <p>인공지능의 기본 개념과 활용법</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/ai-artificial-intelligence.html')">자세히 보기</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <div class="placeholder-img">
+                            <span>🧠</span>
+                            <p>썸네일 준비중</p>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>머신러닝 실습</h3>
+                        <p>실무에서 바로 사용하는 머신러닝</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/ai-artificial-intelligence.html')">자세히 보기</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <div class="placeholder-img">
+                            <span>⚡</span>
+                            <p>썸네일 준비중</p>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>ChatGPT 활용</h3>
+                        <p>업무 생산성을 높이는 AI 도구 활용</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/ai-artificial-intelligence.html')">자세히 보기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 추천강의 섹션 -->
+    <section class="courses-section section-gray">
+        <div class="container">
+            <h2 class="section-title">추천강의</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">
+                        <div class="placeholder-img">
+                            <span>⭐</span>
+                            <p>썸네일 준비중</p>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>디지털 마케팅</h3>
+                        <p>온라인 마케팅 전략과 실무 노하우</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/marketing.html')">자세히 보기</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <div class="placeholder-img">
+                            <span>📊</span>
+                            <p>썸네일 준비중</p>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>데이터 분석</h3>
+                        <p>비즈니스 데이터 분석과 인사이트 도출</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/data-science.html')">자세히 보기</button>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-image">
+                        <div class="placeholder-img">
+                            <span>🎨</span>
+                            <p>썸네일 준비중</p>
+                        </div>
+                    </div>
+                    <div class="course-content">
+                        <h3>UX/UI 디자인</h3>
+                        <p>사용자 중심의 디자인 설계와 구현</p>
+                        <button class="detail-btn" onclick="goToCourse('pages/design.html')">자세히 보기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>올티쳐스</h3>
+                    <p>서울시 서초구 서초대로50길 62-9 한림빌딩 (주)에듀컴퍼니</p>
+                    <p>사업자등록번호 : 513-87-03047</p>
+                    <p>대표명 : 윤주훈</p>
+                    <p>대표 전화 : 02-2135-7870</p>
+                    <div class="copyright">
+                        <p>Copyright ⓒ 2025 올티쳐스 All rights reserved.</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="https://allteachers.imweb.me/88" target="_blank">공지사항</a>
+                    <a href="https://allteachers.imweb.me/89" target="_blank">고객·제휴문의</a>
+                    <a href="https://allteachers.imweb.me/?mode=policy" target="_blank">이용약관</a>
+                    <a href="https://allteachers.imweb.me/?mode=privacy" target="_blank">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 로그인 모달 -->
+    <div id="loginModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>로그인</h2>
+                <span class="close" onclick="closeLoginModal()">&times;</span>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>이메일</label>
+                    <input type="email" id="login-email" required placeholder="이메일을 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input type="password" id="login-password" required placeholder="비밀번호를 입력하세요">
+                </div>
+                <button type="submit" class="login-submit-btn">로그인</button>
+                <p style="text-align: center; margin-top: 15px;">
+                    계정이 없으신가요? <a href="#" onclick="showRegister()">회원가입</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 회원가입 모달 -->
+    <div id="registerModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>회원가입</h2>
+                <span class="close" onclick="closeRegisterModal()">&times;</span>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>이름</label>
+                    <input type="text" id="register-name" required placeholder="이름을 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label>이메일</label>
+                    <input type="email" id="register-email" required placeholder="이메일을 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input type="password" id="register-password" required placeholder="비밀번호를 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label>비밀번호 확인</label>
+                    <input type="password" id="register-password-confirm" required placeholder="비밀번호를 다시 입력하세요">
+                </div>
+                <button type="submit" class="login-submit-btn">회원가입</button>
+                <p style="text-align: center; margin-top: 15px;">
+                    이미 계정이 있으신가요? <a href="#" onclick="showLogin()">로그인</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/search.js"></script>
+    <script src="slider.js"></script>
+</body>
+</html>

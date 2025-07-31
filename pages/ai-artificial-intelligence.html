@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI/인공지능 강의 - 올티처스</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .video-container { background: #000; padding: 0; margin: 0; }
+        .video-player { width: 100%; height: 500px; background: #000; display: flex; align-items: center; justify-content: center; position: relative; }
+        .video-placeholder { color: white; text-align: center; font-size: 24px; }
+        .play-button { position: absolute; width: 80px; height: 80px; background: rgba(255, 255, 255, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 30px; color: #339dff; transition: all 0.3s; }
+        .play-button:hover { background: white; transform: scale(1.1); }
+        .course-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; padding: 40px 0; max-width: 1400px; margin: 0 auto; }
+        .course-main { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .course-sidebar { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); height: fit-content; }
+        .course-title { font-size: 32px; font-weight: 700; color: #333; margin-bottom: 15px; }
+        .course-meta { display: flex; gap: 20px; margin-bottom: 25px; font-size: 14px; color: #666; }
+        .meta-item { display: flex; align-items: center; gap: 5px; }
+        .course-description { line-height: 1.7; color: #555; margin-bottom: 40px; }
+        .chapter-list { margin-top: 30px; }
+        .chapter-item { border: 1px solid #eee; border-radius: 12px; margin-bottom: 15px; padding: 20px; cursor: pointer; transition: all 0.3s; }
+        .chapter-item:hover { border-color: #339dff; box-shadow: 0 4px 15px rgba(51, 157, 255, 0.1); }
+        .chapter-item.active { border-color: #339dff; background: #f8fcff; }
+        .chapter-title { font-weight: 600; color: #333; margin-bottom: 8px; }
+        .chapter-duration { font-size: 14px; color: #666; }
+        .instructor-info { border-top: 1px solid #eee; padding-top: 30px; margin-top: 30px; }
+        .instructor-card { display: flex; gap: 20px; align-items: center; margin-bottom: 20px; }
+        .instructor-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #339dff, #2178c9); display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: bold; }
+        .instructor-details h4 { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
+        .instructor-details p { color: #666; font-size: 14px; }
+        
+        /* 무료 강의 섹션 스타일 */
+        .free-course-section {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        .free-badge {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .login-prompt {
+            background: #339dff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+        .login-prompt:hover {
+            background: #2178c9;
+        }
+        
+        .course-features { margin-top: 20px; }
+        .feature-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px; }
+        .reviews-section { margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; }
+        .review-item { background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .review-author { font-weight: 600; }
+        .review-rating { color: #ffa500; }
+        @media (max-width: 768px) { .course-layout { grid-template-columns: 1fr; padding: 20px; } .video-player { height: 250px; } .course-title { font-size: 24px; } }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="올티처스 로고" style="height: 40px;">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <div class="nav-item"><span>기업 언어교육</span></div>
+                <div class="nav-item"><span>기업 직무교육</span></div>
+                <div class="nav-item"><span>대학/대학원교육</span></div>
+                <div class="nav-item"><span>중등/고등교육</span></div>
+                <div class="nav-item"><span>유아/초등교육</span></div>
+            </nav>
+            <div class="header-actions">
+                <button class="action-btn">🔍 검색</button>
+                <button class="action-btn">👤 마이페이지</button>
+                <button class="action-btn login-btn">🔐 로그인</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Video Player -->
+    <div class="video-container">
+        <div class="video-player" id="videoPlayer">
+            <div class="video-placeholder">
+                <h3 style="margin-bottom: 20px;">AI/인공지능 완전정복 🆓</h3>
+                <p>현재 1강: AI의 기본 개념과 활용 분야</p>
+                <p style="font-size: 16px; margin-top: 10px; opacity: 0.8;">무료 강의 • 로그인 후 시청 가능</p>
+            </div>
+            <div class="play-button" onclick="checkLoginAndPlay()">▶</div>
+        </div>
+    </div>
+
+    <!-- Course Content -->
+    <div class="course-layout">
+        <!-- Main Content -->
+        <div class="course-main">
+            <h1 class="course-title">AI/인공지능 완전정복 - 기초부터 실무까지 🆓</h1>
+            
+            <div class="course-meta">
+                <div class="meta-item">
+                    <span>🆓</span>
+                    <span>무료 강의</span>
+                </div>
+                <div class="meta-item">
+                    <span>👥</span>
+                    <span>수강생 2,847명</span>
+                </div>
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>총 8시간 30분</span>
+                </div>
+                <div class="meta-item">
+                    <span>📅</span>
+                    <span>2025.01.15 업데이트</span>
+                </div>
+                <div class="meta-item">
+                    <span>⭐</span>
+                    <span>4.8 (523개 리뷰)</span>
+                </div>
+            </div>
+
+            <div class="course-description">
+                <p>AI가 모든 산업을 변화시키고 있는 지금, 더 이상 선택이 아닌 필수가 되었습니다. 
+                이 <strong>무료 강의</strong>에서는 AI의 기본 개념부터 ChatGPT, 미드저니 등 최신 AI 도구 활용법까지 
+                체계적으로 학습할 수 있습니다.</p>
+                <br>
+                <p><strong>이런 분들께 추천합니다:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>AI 기초 지식이 필요한 직장인</li>
+                    <li>업무 효율성을 높이고 싶은 분</li>
+                    <li>새로운 기술 트렌드를 따라가고 싶은 분</li>
+                    <li>AI 관련 창업을 준비하는 분</li>
+                </ul>
+            </div>
+
+            <!-- Chapter List -->
+            <div class="chapter-list">
+                <h3 style="margin-bottom: 20px;">강의 목차 (전체 무료 🆓)</h3>
+                
+                <div class="chapter-item active" onclick="loadChapter(1)">
+                    <div class="chapter-title">1강: AI의 기본 개념과 활용 분야 🔓</div>
+                    <div class="chapter-duration">⏱️ 45분 • 무료</div>
+                </div>
+
+                <div class="chapter-item" onclick="loadChapter(2)">
+                    <div class="chapter-title">2강: 머신러닝과 딥러닝의 이해 🔓</div>
+                    <div class="chapter-duration">⏱️ 52분 • 무료</div>
+                </div>
+
+                <div class="chapter-item" onclick="loadChapter(3)">
+                    <div class="chapter-title">3강: ChatGPT 활용법 완전정복 🔓</div>
+                    <div class="chapter-duration">⏱️ 68분 • 무료</div>
+                </div>
+
+                <div class="chapter-item" onclick="loadChapter(4)">
+                    <div class="chapter-title">4강: 프롬프트 엔지니어링 실습 🔓</div>
+                    <div class="chapter-duration">⏱️ 71분 • 무료</div>
+                </div>
+
+                <div class="chapter-item" onclick="loadChapter(5)">
+                    <div class="chapter-title">5강: 이미지 생성 AI 도구 활용 🔓</div>
+                    <div class="chapter-duration">⏱️ 58분 • 무료</div>
+                </div>
+
+                <div class="chapter-item" onclick="loadChapter(6)">
+                    <div class="chapter-title">6강: 업무 자동화 AI 도구 🔓</div>
+                    <div class="chapter-duration">⏱️ 63분 • 무료</div>
+                </div>
+
+                <div class="chapter-item" onclick="loadChapter(7)">
+                    <div class="chapter-title">7강: AI 윤리와 미래 전망 🔓</div>
+                    <div class="chapter-duration">⏱️ 42분 • 무료</div>
+                </div>
+
+                <div class="chapter-item" onclick="loadChapter(8)">
+                    <div class="chapter-title">8강: 실무 프로젝트 및 포트폴리오 🔓</div>
+                    <div class="chapter-duration">⏱️ 89분 • 무료</div>
+                </div>
+            </div>
+
+            <!-- Instructor Info -->
+            <div class="instructor-info">
+                <h3 style="margin-bottom: 20px;">강사 소개</h3>
+                <div class="instructor-card">
+                    <div class="instructor-avatar">김AI</div>
+                    <div class="instructor-details">
+                        <h4>김민수 강사</h4>
+                        <p>AI 전문가 • 15년 경력</p>
+                        <p>삼성전자 AI 연구소 출신 • AI 관련 도서 3권 출간</p>
+                    </div>
+                </div>
+                <p style="color: #666; line-height: 1.6;">
+                    15년간 AI 분야에서 연구와 실무를 병행해온 전문가입니다. 
+                    복잡한 AI 개념을 쉽고 실용적으로 설명하는 것이 특기이며, 
+                    이미 5,000명 이상의 수강생을 가르쳤습니다.
+                </p>
+            </div>
+
+            <!-- Reviews -->
+            <div class="reviews-section">
+                <h3 style="margin-bottom: 20px;">수강후기 (523개)</h3>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="review-author">박**</span>
+                        <span class="review-rating">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p>무료인데 이렇게 퀄리티 높은 강의를 들을 수 있다니! AI에 대해 전혀 몰랐는데 업무에 바로 적용할 수 있게 되었습니다.</p>
+                </div>
+
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="review-author">이**</span>
+                        <span class="review-rating">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p>로그인만 하면 바로 볼 수 있어서 너무 좋아요. 강사님이 설명을 정말 쉽게 해주셔서 이해가 잘 되었습니다.</p>
+                </div>
+
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="review-author">최**</span>
+                        <span class="review-rating">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p>완전 무료라니 믿기지 않을 정도로 좋은 내용들이에요. 회사에서 AI 도입 검토할 때 많은 도움이 되었습니다!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="course-sidebar">
+            <!-- Free Course Section -->
+            <div class="free-course-section">
+                <div class="free-badge">🆓 무료 강의</div>
+                <p style="margin-bottom: 15px;">로그인만 하면 바로 시청 가능!</p>
+                <button class="login-prompt" onclick="promptLogin()">로그인하고 시청하기</button>
+                
+                <div class="course-features">
+                    <div class="feature-item" style="color: white;">
+                        <span>✅</span>
+                        <span>완전 무료 시청</span>
+                    </div>
+                    <div class="feature-item" style="color: white;">
+                        <span>📱</span>
+                        <span>모바일, PC 모두 지원</span>
+                    </div>
+                    <div class="feature-item" style="color: white;">
+                        <span>💬</span>
+                        <span>강사 Q&A 지원</span>
+                    </div>
+                    <div class="feature-item" style="color: white;">
+                        <span>📜</span>
+                        <span>수료증 발급</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Progress -->
+            <div style="margin-bottom: 30px;">
+                <h4 style="margin-bottom: 15px;">학습 진도</h4>
+                <div style="background: #eee; border-radius: 10px; height: 10px; margin-bottom: 10px;">
+                    <div style="background: #28a745; height: 100%; width: 12.5%; border-radius: 10px;"></div>
+                </div>
+                <p style="font-size: 14px; color: #666;">1/8 강의 완료 (12.5%)</p>
+            </div>
+
+            <!-- Related Courses -->
+            <div>
+                <h4 style="margin-bottom: 15px;">관련 무료 강의</h4>
+                
+                <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                    <h5 style="margin-bottom: 8px; font-size: 16px;">Python 기초 🆓</h5>
+                    <p style="font-size: 14px; color: #666; margin-bottom: 10px;">AI 개발을 위한 파이썬 기초</p>
+                    <div style="font-size: 14px; color: #28a745; font-weight: 600;">무료</div>
+                </div>
+
+                <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px;">
+                    <h5 style="margin-bottom: 8px; font-size: 16px;">데이터 분석 기초 🆓</h5>
+                    <p style="font-size: 14px; color: #666; margin-bottom: 10px;">Excel부터 시작하는 데이터 분석</p>
+                    <div style="font-size: 14px; color: #28a745; font-weight: 600;">무료</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>올티쳐스</h3>
+                    <p>서울시 서초구 서초대로50길 62-9 한림빌딩 (주)에듀컴퍼니</p>
+                    <p>사업자등록번호 : 513-87-03047</p>
+                    <p>대표명 : 윤주훈</p>
+                    <p>대표 전화 : 02-2135-7870</p>
+                    <div class="copyright">
+                        <p>Copyright ⓒ 2025 올티쳐스 All rights reserved.</p>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="https://allteachers.imweb.me/88" target="_blank">공지사항</a>
+                    <a href="https://allteachers.imweb.me/89" target="_blank">고객·제휴문의</a>
+                    <a href="https://allteachers.imweb.me/?mode=policy" target="_blank">이용약관</a>
+                    <a href="https://allteachers.imweb.me/?mode=privacy" target="_blank">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 로그인 상태 확인 (실제로는 서버에서 확인해야 함)
+        let isLoggedIn = false; // 실제 로그인 상태로 변경해야 함
+
+        function checkLoginAndPlay() {
+            if (isLoggedIn) {
+                playVideo();
+            } else {
+                promptLogin();
+            }
+        }
+
+        function playVideo() {
+            const player = document.getElementById('videoPlayer');
+            const playButton = document.querySelector('.play-button');
+            
+            playButton.style.display = 'none';
+            player.innerHTML = `
+                <video width="100%" height="100%" controls autoplay>
+                    <source src="videos/ai-lecture-01.mp4" type="video/mp4">
+                    <p style="color: white;">브라우저가 비디오를 지원하지 않습니다.</p>
+                </video>
+            `;
+        }
+
+        function promptLogin() {
+            alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+            window.location.href = '../pages/login.html';
+        }
+
+        function loadChapter(chapterNum) {
+            if (!isLoggedIn) {
+                promptLogin();
+                return;
+            }
+
+            document.querySelectorAll('.chapter-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            event.target.closest('.chapter-item').classList.add('active');
+            
+            const player = document.getElementById('videoPlayer');
+            const chapterTitles = [
+                'AI의 기본 개념과 활용 분야',
+                '머신러닝과 딥러닝의 이해', 
+                'ChatGPT 활용법 완전정복',
+                '프롬프트 엔지니어링 실습',
+                '이미지 생성 AI 도구 활용',
+                '업무 자동화 AI 도구',
+                'AI 윤리와 미래 전망',
+                '실무 프로젝트 및 포트폴리오'
+            ];
+            
+            player.innerHTML = `
+                <div class="video-placeholder">
+                    <h3 style="margin-bottom: 20px;">AI/인공지능 완전정복 🆓</h3>
+                    <p>현재 ${chapterNum}강: ${chapterTitles[chapterNum-1]}</p>
+                    <p style="font-size: 16px; margin-top: 10px; opacity: 0.8;">무료 강의</p>
+                </div>
+                <div class="play-button" onclick="playVideo()">▶</div>
+            `;
+        }
+
+        // 실제 로그인 상태 확인 (예시)
+        // 실제 구현에서는 서버에서 세션이나 토큰을 확인해야 함
+        function checkLoginStatus() {
+            // 예: localStorage에서 로그인 토큰 확인
+            const token = localStorage.getItem('userToken');
+            if (token) {
+                isLoggedIn = true;
+                // 로그인된 경우 UI 업데이트
+                document.querySelector('.login-prompt').textContent = '지금 시청하기';
+                document.querySelector('.login-prompt').onclick = function() {
+                    alert('강의를 시청하세요!');
+                };
+            }
+        }
+
+        // 페이지 로드 시 로그인 상태 확인
+        document.addEventListener('DOMContentLoaded', checkLoginStatus);
+    </script>
+    <!-- pages/ai-artificial-intelligence.html 일부 수정 -->
+<script>
+    // 로그인 확인 및 동영상 재생
+    function checkLoginAndPlay() {
+        const currentUser = JSON.parse(localStorage.getItem('allteachers_current_user'));
+        
+        if (currentUser) {
+            playVideo();
+            // 강의를 사용자 수강 목록에 추가
+            if (!currentUser.courses.includes('AI/인공지능')) {
+                currentUser.courses.push('AI/인공지능');
+                currentUser.progress['AI/인공지능'] = 0;
+                
+                // localStorage 업데이트
+                const users = JSON.parse(localStorage.getItem('allteachers_users'));
+                users[currentUser.email] = currentUser;
+                localStorage.setItem('allteachers_users', JSON.stringify(users));
+                localStorage.setItem('allteachers_current_user', JSON.stringify(currentUser));
+            }
+        } else {
+            alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+            window.location.href = '../index.html';
+        }
+    }
+
+    function playVideo() {
+        const player = document.getElementById('videoPlayer');
+        const playButton = document.querySelector('.play-button');
+        
+        if (playButton) playButton.style.display = 'none';
+        
+        // 실제 비디오 또는 YouTube 임베드 코드
+        player.innerHTML = `
+            <video width="100%" height="100%" controls autoplay>
+                <source src="../videos/ai-lecture-01.mp4" type="video/mp4">
+                <!-- YouTube 임베드도 가능 -->
+                <!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
+                <p style="color: white;">브라우저가 비디오를 지원하지 않습니다.</p>
+            </video>
+        `;
+        
+        // 진도율 업데이트 (예시)
+        updateProgress(12.5); // 1강 완료시 12.5%
+    }
+
+    function updateProgress(progress) {
+        const currentUser = JSON.parse(localStorage.getItem('allteachers_current_user'));
+        if (currentUser) {
+            currentUser.progress['AI/인공지능'] = Math.max(currentUser.progress['AI/인공지능'] || 0, progress);
+            
+            const users = JSON.parse(localStorage.getItem('allteachers_users'));
+            users[currentUser.email] = currentUser;
+            localStorage.setItem('allteachers_users', JSON.stringify(users));
+            localStorage.setItem('allteachers_current_user', JSON.stringify(currentUser));
+        }
+    }
+
+    function loadChapter(chapterNum) {
+        const currentUser = JSON.parse(localStorage.getItem('allteachers_current_user'));
+        if (!currentUser) {
+            alert('로그인이 필요합니다.');
+            window.location.href = '../index.html';
+            return;
+        }
+
+        // 챕터 로드 로직
+        document.querySelectorAll('.chapter-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        event.target.closest('.chapter-item').classList.add('active');
+        
+        const chapterTitles = [
+            'AI의 기본 개념과 활용 분야',
+            '머신러닝과 딥러닝의 이해', 
+            'ChatGPT 활용법 완전정복',
+            '프롬프트 엔지니어링 실습',
+            '이미지 생성 AI 도구 활용',
+            '업무 자동화 AI 도구',
+            'AI 윤리와 미래 전망',
+            '실무 프로젝트 및 포트폴리오'
+        ];
+        
+        const player = document.getElementById('videoPlayer');
+        player.innerHTML = `
+            <div class="video-placeholder">
+                <h3 style="margin-bottom: 20px;">AI/인공지능 완전정복 🆓</h3>
+                <p>현재 ${chapterNum}강: ${chapterTitles[chapterNum-1]}</p>
+                <p style="font-size: 16px; margin-top: 10px; opacity: 0.8;">무료 강의</p>
+            </div>
+            <div class="play-button" onclick="playVideo()">▶</div>
+        `;
+        
+        // 진도율 업데이트
+        updateProgress(chapterNum * 12.5);
+    }
+</script>
+
+</body>
+</html>
+
+

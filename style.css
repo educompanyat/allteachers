@@ -1,0 +1,646 @@
+/* Pretendard 폰트 import */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/web/variable/pretendardvariable.css');
+
+/* 전체 초기화 및 기본 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background-color: #f6f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header 스타일 */
+.header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    max-width: 1920px;
+    margin: 0 auto;
+    height: 70px;
+}
+
+/* 로고 스타일 - 완전 왼쪽 끝에 고정 */
+.logo {
+    margin: 0;
+    padding: 0 20px;
+    flex-shrink: 0;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* 메인 네비게이션 - 가운데 정렬 */
+.main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 30px;
+}
+
+.nav-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.nav-item span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    padding: 20px 10px;
+    display: block;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-item:hover span {
+    color: #339dff;
+}
+
+/* 드롭다운 메뉴 - 즉시 표시되도록 수정 */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 1001;
+}
+
+.nav-item:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin: 2px 8px;
+}
+
+.dropdown-item:hover {
+    background-color: #339dff !important;
+    color: white !important;
+    transform: scale(1.02);
+}
+
+/* 우측 액션 버튼들 */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-right: 20px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: #e7f3ff;
+    color: #339dff;
+}
+
+.login-btn {
+    background-color: #339dff;
+    color: white;
+}
+
+.login-btn:hover {
+    background-color: #2178c9;
+    color: white;
+}
+
+/* 모바일 햄버거 메뉴 */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 20px;
+}
+
+.mobile-menu-btn span {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* 배너 섹션 */
+.banner-section {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.banner-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.banner-slide.active {
+    opacity: 1;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.banner-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* 배너 텍스트 박스 - 사각형 배경 제거 */
+.text-box {
+    text-align: center;
+    color: white;
+    padding: 40px 60px;
+}
+
+.text-box h2 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.text-box p {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    opacity: 0.95;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* CTA 버튼 - 투명도 30% */
+.cta-btn {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 15px 35px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 배너 네비게이션 화살표 - 투명도 30% */
+.banner-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.3);
+    color: #339dff;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.prev-arrow {
+    left: 30px;
+}
+
+.next-arrow {
+    right: 30px;
+}
+
+.banner-arrow:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.banner-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+}
+
+/* 배너 도트들 - 투명도 30% */
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+/* 강좌 섹션 */
+.courses-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.courses-section:not(:last-of-type) {
+    margin-bottom: 0;
+}
+
+/* 섹션 배경 구분을 위한 회색 배경 */
+.section-gray {
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    justify-items: center;
+}
+
+.course-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+}
+
+.course-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.course-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.course-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* placeholder 이미지 스타일 */
+.placeholder-img {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #339dff 0%, #2178c9 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 8px;
+}
+
+.placeholder-img span {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.placeholder-img p {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* 카드 호버 효과 통일 */
+.course-card:hover .placeholder-img {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.course-content {
+    padding: 30px;
+    text-align: center;
+}
+
+.course-content h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.course-content p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.detail-btn {
+    background-color: #339dff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.detail-btn:hover {
+    background-color: #2178c9;
+    transform: translateY(-2px);
+}
+
+/* 푸터 */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 50px 0 30px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-info h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #339dff;
+    margin-bottom: 20px;
+}
+
+.footer-info p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: #ccc;
+}
+
+.copyright {
+    margin-top: 20px;
+}
+
+.copyright p {
+    font-size: 12px;
+    color: #999;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #339dff;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .main-nav {
+        gap: 20px;
+    }
+    
+    .courses-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .text-box {
+        padding: 30px 40px;
+    }
+    
+    .text-box h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        height: 60px;
+    }
+    
+    .logo {
+        padding: 0 15px;
+    }
+    
+    .main-nav {
+        display: none;
+    }
+    
+    .main-nav.mobile-active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        animation: slideDown 0.3s ease;
+    }
+    
+    .main-nav.mobile-active .nav-item {
+        margin: 10px 0;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .header-actions {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .banner-section {
+        height: 300px;
+    }
+    
+    .text-box {
+        padding: 25px 30px;
+    }
+    
+    .text-box h2 {
+        font-size: 28px;
+    }
+    
+    .text-box p {
+        font-size: 16px;
+    }
+    
+    .cta-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+    
+    .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .courses-section {
+        padding: 50px 0;
+    }
+    
+    .banner-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .prev-arrow {
+        left: 15px;
+    }
+    
+    .next-arrow {
+        right: 15px;
+    }
+}
